@@ -15,15 +15,26 @@ the reverse complement of "GTCA" is "TGAC").
 
 from string import maketrans
 
-string = 'AAAACCCGGT'
-print(string)
-print(string[::-1])
+def create_trans_table(string, complement):
+    """
+    Creates a translation table to turn DNA sequence into
+    it's complement
+    """
+    return maketrans(string, complement)
+    
+if __name__=="__main__":
+    
+    #dna = 'AAAACCCGGT'
+    # Load in input
+    with open('data/rosalind_revc.txt') as input_data:
+        dna = input_data.read().strip()
 
-# Dictionary containing DNA complements
-#dic = {'A': 'T', 'T': 'A',
-#       'C': 'G', 'G': 'C'}
-DNA = 'ATCG'
-complement = 'TAGC'
-translation_table = maketrans(DNA, complement)
+    trans_table = create_trans_table('ATCG', 'TAGC')
 
-print(string[::-1].translate(translation_table))
+    # Reverse the DNA sequence before transforming
+    rev_dna = dna[::-1].translate(trans_table)
+    
+    print(rev_dna)
+    # Save solution
+    with open('output/003_REV_COMP_DNA.txt', 'w') as output_data:
+        output_data.write(rev_dna)
