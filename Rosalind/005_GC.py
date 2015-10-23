@@ -6,7 +6,6 @@ Rosalind #: 005
 """
 
 import numpy as np
-import 009_SUBS# import RabinKarpSet
 
 if __name__=="__main__":
 
@@ -19,7 +18,18 @@ if __name__=="__main__":
     sequence = sample_data[::2]
     # Store content of sequence
     content = sample_data[1::2]
+    
+    GC_content = []
+    for i in range(len(sequence)):
+        amount = 0
+        for base in content[i]:
+            if base in ('G', 'C'):
+                amount += 1
+        GC_content.append(float(amount) / float(len(content[i])) * 100.0)
 
-    patterns = {'1': 'C', '2': 'G'}
-    positions = RabinKarpSet(content[0], patterns, 1)
-    print(positions)
+    m = GC_content.index(max(GC_content))
+    print(sequence[m])
+    print(content[m])
+    
+
+    # FAR TOO ROUGH AT THE MOMENT!!
